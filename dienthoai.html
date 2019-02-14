@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Codegym</title>
+</head>
+
+<body>
+<form>
+    <h1>Nokia</h1> <br/>
+    <h3 id="txtTTOnOffNokia">OFF</h3><br/>
+    <input type="button" value="Khóa" style="width:150px" onclick="moNguonDT(nokia,'txtTTOnOffNokia',btnNokia,'btnOnOffNokia');"/>
+    <input type="button" value="Xem Tr?ng Thái Pin" style="width:150px" onclick="XemttPin(nokia);"/>
+    <input type="button" class="btnNokia" value="S?c Pin" style="width:150px" disable onclick="xacPin(nokia);"/>
+    <br>
+    <input type="button" class="btnNokia" value="Nh?n Tin" style="margin-top: 10px; width: 150px" disable onclick="nhanTin(nokia,iphone)"/>
+    <input type="button" class="btnNokia" value="Ð?c Tin" style="width:150px" disable onclick="docTin(nokia,'txtShowNokia')"/>
+    <input type="button" class="btnNokia" value="Tin Nh?n Ð? G?i" style="width:150px" disable onclick="tinNhanDaGui(nokia,'txtShowNokia')"/>
+    <br>
+    <h id="txtShowNokia"></h>z
+    <hr style="width: 1000px">
+    <hr style="width: 1000px">
+    <h1>Iphone</h1> <br/>
+    <h3 id="txtTTOnOffIphone">OFF</h3>
+    <br>
+    <input type="button" value="Khóa" style="width:150px" onclick="moNguonDT(iphone,'txtTTOnOffIphone',btnIphone,'btnOnOffIphone');"/>
+    <input type="button" value="Xem Tr?ng Thái Pin" style="width:150px" onclick="XemttPin(iphone);"/>
+    <input type="button" class="btnIphone" value="S?c Pin" style="width:150px" disable onclick="xacPin(iphone);"/>
+    <br>
+    <input type="button" class="btnIphone" value="Nh?n Tin" style="margin-top: 10px; width: 150px" disable onclick="nhanTin(iphone,nokia)"/>
+    <input type="button" class="btnIphone" value="Ð?c Tin" style="width:150px" disable onclick="docTin(nokia,'txtShowIphone')"/>
+    <input type="button" class="btnIphone" value="Tin Nh?n Ð? G?i" style="width:150px" disable onclick="tinNhanDaGui(nokia,'txtShowIphone')"/>
+    <br>
+    <h id="txtShowIphone"></h>
+</form>
+<script>
+    function MobilePhone() {
+        this.nameMay;
+        this.ttPin;
+        this.ttDienThoai;
+        this.arrMessGui = [];
+        this.arrMessNhan = [];
+        this.guiTinNhan = guiTinNhan;
+        this.getName = getName;
+        this.setName = setName;
+        this.docTinNhan = docTinNhan;
+        this.setPinOrigin = setPinOrigin;
+        this.getPin = getPin;
+        this.setPin = setPin;
+        this.setTTDT = setTTDT;
+        this.getTTDT = getTTDT;
+        this.docTinNhanDaGui = docTinNhanDaGui;
+    };
+
+    function setName(name) {
+        this.nameMay = name;
+    }
+
+    function getName() {
+        return this.nameMay;
+    }
+
+    function setPinOrigin(pin) {
+        this.ttPin = pin;
+    }
+
+    function getPin() {
+        return this.ttPin;
+    }
+
+    function getTTDT() {
+        return this.ttDienThoai;
+    }
+
+    function setTTDT(tt){
+        this.ttDienThoai = tt;
+    }
+
+    function getMess(str) {
+        this.arrMessNhan.push(str);
+    }
+
+    function guiTinNhan(objNhan, str) {
+        this.messSoanThao = str;
+        objNhan = arrMessNhan.push(this.messSoanThao);
+        this.arrMessGui = push(this.MessSoanThao);
+    }
+
+    function docTinNhan() {
+        let htmlStr = "<br>";
+        for (let i = 0; i < this.arrMessNhan.length; i++) {
+            htmlStr += i + 1 + ". &nbnp;" + this.arrMessNhan[i] + "<br>";
+        }
+        return htmlStr;
+    }
+
+    function docTinNhanDaGui() {
+        let htmlStr = "<br>";
+        for (let i = 0; this.arrMessGui.length; i++) {
+            htmlStr += i + 1 + ". &nbnp;" + this.arrMessGui[i] + "<br>"
+        }
+    }
+
+    //menu
+    let tenMay1 = "Nokia";
+    let tenMay2 = "Iphone";
+    let nokia = new MobilePhone();
+    let iphone = new MobilePhone();
+    let dem = 0;
+    nokia.setPinOrigin(100);
+    iphone.setPinOrigin(100);
+    nokia.setName(tenMay1);
+    iphone.setName(tenMay2);
+
+    function docTin(obj, idTxtHienthi) {
+        doc.getElementById(idTxtHienthi).innerText = "";
+        document.getElementById(idTxtHienthi).innerHTML = "<br> TinNhanDen<br>" + obj.docTinNhan();
+        obj.setPin(1);
+    }
+    function tinNhanDaGui(obj,idTxtHienThi){
+        doc.getElementById(idTxtHienthi).innerText = "";
+        document.getElementById(idTxtHienthi).innerHTML = "<br> TinNhanDaGui<br>" + obj.guiTinNhan();
+        obj.setPin(1);
+    }
+    function Nhantin(objGui,objNhan){
+        let mess = prompt('Nh?p tin nh?n mu?n g?i');
+        objGui = guiTinNhan(objNhan,mess);
+        obj.setPin(1);
+    }
+    function xemTTPin(obj) {
+        alert(obj.getPin + "%");
+    }
+
+    function moNguonDT(obj, idTxtOnOff, className, idBtnOnOff) {
+        if (dem % 2 == 0) {
+            document.getElementById(idTxtOnOff).innerText = "";
+            obj.setTTDT(false);
+            let arr = document.getElementsByClassName(className);
+            for (let i = 0; i < arr.length; i++) {
+                arr[i].disapled = obj.getTTDT();
+            }
+            obj.setPin(1);
+            dem++;
+            document.getElementById(idBtnOnOff).value = "Khóa";
+            document.getElementById(idBtnOnOff).innerHTML = "<br> ON";
+        }
+        else{
+            document.getElementById(idTxtOnOff).innerText = "";
+            obj.setTTDT(false);
+            let arr = document.getElementsByClassName(className);
+            for (let i = 0; i < arr.length; i++) {
+                arr[i].disapled = obj.getTTDT();
+            }
+            obj.setPin(1);
+            dem++;
+            document.getElementById(idBtnOnOff).value = "Khóa";
+            document.getElementById(idBtnOnOff).innerHTML = "<br> OFF";
+        }
+    }
+    function xacPin(obj){
+        alert('Ð? x?c');
+        obj.setPinOrigin(100);
+    }
+</script>
+</body>
+</html>
